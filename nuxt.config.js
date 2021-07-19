@@ -10,7 +10,7 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
- 
+  ssr: true,
   server: {
     port: 8080,
   },
@@ -20,8 +20,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/axios.js'],
 
-//serverMiddleware: ['~/server-middleware/reminder'],
-serverMiddleware: ["~/api"],
+  //serverMiddleware: ['~/server-middleware/reminder'],
+  serverMiddleware: ['~/api'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -40,14 +40,39 @@ serverMiddleware: ["~/api"],
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    ['cookie-universal-nuxt', { alias: 'cookiz' }],
+    '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: 'http://localhost:8080/api',
   },
-
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/'
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          required: true,
+          type: 'Bearer',
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/login', method: 'post', propertyName: 'login' },
+          user: false,
+          logout: false,
+        },
+      },
+    },
+  },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -55,7 +80,7 @@ serverMiddleware: ["~/api"],
     },
   },
   router: {
-    middleware: ['auth']
+    middleware: ['auth'],
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

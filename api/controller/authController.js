@@ -1,15 +1,16 @@
-
 //public auth controllers
 
-const jwt = require("jsonwebtoken");
-const { jwt_access_key } = require("../utils/secrets/secret");
+const jwt = require('jsonwebtoken')
+const { jwt_access_key } = require('../utils/secrets/secret')
 
 const login = async function (req, res, next) {
-  const token = jwt.sign(req.user, jwt_access_key, { expiresIn: "1d" });
+  const token = jwt.sign(req.user, jwt_access_key, { expiresIn: '1d' })
 
-  res.send({ token: token });
-};
+  res.send({ token: token, user: req.user })
+}
+
+
 
 module.exports = {
   login,
-};
+}

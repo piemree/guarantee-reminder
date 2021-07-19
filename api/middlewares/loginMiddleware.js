@@ -6,10 +6,10 @@ module.exports = async function (req, res, next) {
   User.find({ username })
     .then((doc) => {
       if (!(doc.length > 0))
-        return res.json({ message: "kullanıcı bulunamadı." });
+        return res.status(401).send({ message: "kullanıcı bulunamadı." });
 
       if (doc[0].password != password)
-        return res.json({ message: "şifre yanlış" });
+        return res.status(401).json({ message: "şifre yanlış" });
 
       req.user = { _id: doc[0]._id, username: doc[0].username };
       

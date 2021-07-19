@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const app = express()
 
 const warratyRoute = require('./routes/authRoutes/guaranteeRoute')
+
 const publicRoutes = require('./routes/publicRoutes')
 const tokenCheck = require('./middlewares/tokenCheckMiddleware')
 
@@ -16,13 +17,11 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get('/', function (req, res) {
-  res.cookie('test', 'emo')
-})
 
 app.use('/', publicRoutes)
 
 app.use('/guarantee', tokenCheck, warratyRoute)
+
 
 startDb(connectionString)
 
