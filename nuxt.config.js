@@ -1,3 +1,4 @@
+require('dotenv').config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -45,13 +46,16 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:8080/api',
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? process.env.BASE_URL
+        : 'http://localhost:8080/api',
   },
   auth: {
     redirect: {
       login: '/login',
       logout: '/login',
-      home: '/'
+      home: '/',
     },
     strategies: {
       local: {
