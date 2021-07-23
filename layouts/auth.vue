@@ -1,9 +1,11 @@
 <template>
-  <h1>about</h1>
+  <div>
+    <Nuxt />
+  </div>
 </template>
 
 <script>
 export default {
-  
+  name: 'Auth',
 }
 </script>

@@ -21,7 +21,8 @@ async function addNewGuarantee(req, res) {
 }
 
 async function updateMaintance(req, res) {
-  const { _id, maintance } = req.body
+  const _id = req.params.id
+  const maintance = req.body
 
   Guarantee.updateMaintance(_id, maintance._id, maintance.checked, Guarantee)
     .then((doc) => res.status(200).json(doc))
@@ -31,10 +32,9 @@ async function updateMaintance(req, res) {
 async function deleteGuarantee(req, res) {
   const _id = req.params.id
   try {
-    const doc = await Guarantee.findByIdAndRemove({_id})
+    const doc = await Guarantee.findByIdAndRemove({ _id })
 
-    res.status(200).json({_id:doc._id})
-    
+    res.status(200).json({ _id: doc._id })
   } catch (error) {
     res.status(404).json({ error: error.message })
   }

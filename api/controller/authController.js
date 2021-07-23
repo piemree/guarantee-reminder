@@ -6,10 +6,8 @@ const { jwt_access_key } = require('../utils/secrets/secret')
 const login = async function (req, res, next) {
   const token = jwt.sign(req.user, jwt_access_key, { expiresIn: '1d' })
 
-  res.send({ token: token, user: req.user })
+  res.send({ token: token, username: false, password: false })
 }
-
-
 
 module.exports = {
   login,
