@@ -27,9 +27,11 @@ module.exports = async function (next) {
 
   guarantee.total = guarantee.vatPrice + guarantee.subtotal
 
-  guarantee.products=[]
+  guarantee.maintance = guarantee.maintances.sort((a, b) => b.date - a.date)[
+    guarantee.maintances.length - 1
+  ]
 
-  
+  guarantee.products = []
 
   next()
 }

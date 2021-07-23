@@ -9,11 +9,14 @@
         </b-navbar-item>
       </template>
       <template #start>
-        <b-navbar-item href="/"> Anasayfa </b-navbar-item>
-        <b-navbar-dropdown label="Garanti">
-          <b-navbar-item href="new">Yeni </b-navbar-item>
-          <b-navbar-item href="/"> Liste </b-navbar-item>
-        </b-navbar-dropdown>
+        <b-navbar-item tag="router-link" :to="{ path: '/' }">
+          Anasayfa
+        </b-navbar-item>
+
+        <b-navbar-item tag="router-link" :to="{ path: '/new' }"
+          >Yeni
+        </b-navbar-item>
+
         <b-navbar-dropdown label="Tamir">
           <b-navbar-item href="/fixes"> Yeni </b-navbar-item>
           <b-navbar-item href="/fixes/new"> Liste </b-navbar-item>
@@ -23,7 +26,7 @@
       <template #end>
         <b-navbar-item tag="div">
           <div class="buttons">
-            <a class="button is-primary" @click="$auth.logout()" >
+            <a class="button is-primary" @click="$auth.logout()">
               <strong>Çıkış</strong>
             </a>
           </div>

@@ -16,6 +16,10 @@ const guaranteeSchema = new mongoose.Schema(
     maintances: [maintenceSchema],
     subject: { type: String, required: true },
     //properties: { type: Array},
+    maintance: {
+      date: { type: Date },
+      checked: { type: Boolean, default: false },
+    },
     underGuarantee: { type: Boolean, default: true },
     maintancePeriod: { type: Number, required: true },
     guaranteePeriod: { type: Number, required: true },
