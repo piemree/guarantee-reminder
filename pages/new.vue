@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import NewGuarantee from '@/components/NewGuarantee.vue'
+import NewGuarantee from '~/components/guarantee/NewGuarantee.vue'
 export default {
   components: { NewGuarantee },
 }

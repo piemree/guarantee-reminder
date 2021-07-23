@@ -74,7 +74,9 @@
         @idx="deleteProduct"
       />
     </div>
-    <h3 class="title is-5 my-3 mt-5" style="text-align: start">Sistem özellikleri</h3>
+    <h3 class="title is-5 my-3 mt-5" style="text-align: start">
+      Sistem özellikleri
+    </h3>
     <b-field label="Özellik" label-position="on-border">
       <b-input v-model="prop.text" maxlength="200" type="textarea"></b-input>
     </b-field>
@@ -92,20 +94,48 @@
       />
     </div>
 
+    <h3 class="title is-5 my-3 mt-5" style="text-align: start">
+      Ödeme koşulları
+    </h3>
+    <b-field label="Koşul" label-position="on-border">
+      <b-input v-model="term.text" maxlength="200" type="textarea"></b-input>
+    </b-field>
+    <div>
+      <b-button
+        class="button is-primary is-fullwidth"
+        style="text-align: end"
+        @click="addTerm"
+        >Ekle</b-button
+      >
+      <PropertiesTable
+        v-if="terms.length > 0"
+        :properties="terms"
+        @idx="deleteTerm"
+      />
+    </div>
     <button @click="createGuarantee" type="submit" class="button is-primary">
       Garanti olustur
     </button>
+    <GuaranteePdf
+      :products="products"
+      :customer="customer"
+      :guarantee="guarantee"
+      :properties="properties"
+      :terms="terms"
+    />
   </div>
 </template>
 
 <script>
 import { v4 as uuidv4 } from 'uuid'
-import PropertiesTable from '~/components/PropertiesTable.vue'
-import ProductsTable from '~/components/ProductsTable.vue'
+import GuaranteePdf from './pdf/GuaranteePdf.vue'
+import PropertiesTable from '~/components/guarantee/PropertiesTable.vue'
+import ProductsTable from '~/components/guarantee/ProductsTable.vue'
 export default {
   components: {
     PropertiesTable,
     ProductsTable,
+    GuaranteePdf,
   },
   data() {
     return {
@@ -129,12 +159,14 @@ export default {
       },
       properties: [],
       products: [],
+      terms: [],
       prop: { text: '' },
+      term: { text: '' },
     }
   },
   methods: {
     async createGuarantee() {
-    await this.$store.dispatch('guarantee/addNewGuarantee', {
+      await this.$store.dispatch('guarantee/addNewGuarantee', {
         products: this.products,
         customer: this.customer,
         ...this.guarantee,
@@ -145,9 +177,18 @@ export default {
       this.properties.push({ ...this.prop, id: uuidv4() })
       this.prop.text = ''
     },
+    addTerm() {
+      if (this.term.text === '') return
+      this.terms.push({ ...this.term, id: uuidv4() })
+      this.term.text = ''
+    },
     deleteProp(id) {
       const idx = this.properties.findIndex((el) => el.id === id)
       this.properties.splice(idx, 1)
+    },
+    deleteTerm(id) {
+      const idx = this.terms.findIndex((el) => el.id === id)
+      this.terms.splice(idx, 1)
     },
     addProduct() {
       const { name, price, count } = this.product
