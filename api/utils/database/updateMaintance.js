@@ -9,13 +9,13 @@ module.exports = async function (_id, maintanceId, value, Schema) {
   return await Schema.findOneAndUpdate(
     {
       _id: _id,
-      "maintances._id": maintanceId,
+      'maintances._id': maintanceId,
     },
     {
       $set: {
-        "maintances.$.checked": value,
+        'maintances.$.checked': value,
       },
     },
     { new: true }
-  );
-};
+  )
+}

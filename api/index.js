@@ -1,8 +1,10 @@
 const express = require('express')
-const { startDb } = require('./utils/database/starter')
+const helmet = require('helmet')
 const cors = require('cors')
 const morgan = require('morgan')
 const app = express()
+
+const { startDb } = require('./utils/database/starter')
 
 const warratyRoute = require('./routes/authRoutes/guaranteeRoute')
 
@@ -11,17 +13,14 @@ const tokenCheck = require('./middlewares/tokenCheckMiddleware')
 
 const { port, connectionString } = require('./utils/secrets/secret')
 
+app.use(helmet())
 app.use(morgan('tiny'))
 app.use(cors())
-
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-
 app.use('/', publicRoutes)
-
 app.use('/guarantee', tokenCheck, warratyRoute)
-
 
 startDb(connectionString)
 

@@ -22,9 +22,18 @@ async function addNewGuarantee(req, res) {
 
 async function updateMaintance(req, res) {
   const _id = req.params.id
-  const maintance = req.body
+  const { id } = req.body
 
-  Guarantee.updateMaintance(_id, maintance._id, maintance.checked, Guarantee)
+  Guarantee.updateMaintance(_id, id, true, Guarantee)
+    .then((doc) => res.status(200).json(doc))
+    .catch((err) => res.status(405).json(err))
+}
+
+async function updateGuarantee(req, res) {
+  const _id = req.params.id
+  const guarantee = req.body
+
+  Guarantee.findOneAndUpdate({ _id: _id }, guarantee)
     .then((doc) => res.status(200).json(doc))
     .catch((err) => res.status(405).json(err))
 }
@@ -44,5 +53,6 @@ module.exports = {
   getAllGuarantee,
   addNewGuarantee,
   updateMaintance,
+  updateGuarantee,
   deleteGuarantee,
 }

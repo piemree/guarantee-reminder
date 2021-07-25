@@ -1,11 +1,6 @@
 <template>
   <div class="container">
-    <b-table
-      :data="guarantees"
-      :selected.sync="selected"
-      @click="show"
-      ref="table"
-    >
+    <b-table :data="guarantees" ref="table">
       <b-table-column field="customer.company" label="Firma" v-slot="props">
         {{ props.row.customer.company }}
       </b-table-column>
@@ -20,6 +15,7 @@
       <b-table-column
         field="maintance.date"
         label="Bakım tarihi"
+        @click="show(props.row)"
         sortable
         v-slot="props"
       >
@@ -43,30 +39,40 @@
           {{ new Date(props.row.guaranteeEndDate).toLocaleDateString() }}
         </span>
       </b-table-column>
+      <b-table-column v-slot="props">
+        <b-button @click="show(props.row)" style="width: 100%">Click</b-button>
+      </b-table-column>
     </b-table>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import ModalPage from '@/components/ModalPage.vue'
+
 export default {
+  async asyncData({ store }) {
+    await store.dispatch('guarantee/getAllGuarantees')
+  },
   data() {
-    return {
-      selected: null,
-    }
+    return {}
   },
   computed: {
     ...mapState({
       guarantees: (state) => state.guarantee.guarantees,
     }),
   },
-  async fetch() {
-    await this.$store.dispatch('guarantee/getAllGuarantees')
-  },
 
   methods: {
-    show() {
-      console.log(this.selected)
+    show(data) {
+      this.$buefy.modal.open({
+        parent: this,
+        props: { guarantee: data },
+        component: ModalPage,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      })
     },
   },
 }

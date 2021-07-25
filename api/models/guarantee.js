@@ -30,6 +30,6 @@ const guaranteeSchema = new mongoose.Schema(
 
 guaranteeSchema.statics.updateMaintance = updateMaintance
 
-guaranteeSchema.pre('save', guaranteePreSave)
+guaranteeSchema.pre('save',guaranteePreSave)
 
 module.exports = mongoose.model('Guarantee', guaranteeSchema)

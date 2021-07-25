@@ -128,15 +128,8 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid'
-import GuaranteePdf from './pdf/GuaranteePdf.vue'
-import PropertiesTable from '~/components/guarantee/PropertiesTable.vue'
-import ProductsTable from '~/components/guarantee/ProductsTable.vue'
+
 export default {
-  components: {
-    PropertiesTable,
-    ProductsTable,
-    GuaranteePdf,
-  },
   data() {
     return {
       customer: {
