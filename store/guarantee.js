@@ -8,14 +8,18 @@ export const mutations = {
   },
   replaceGuarantees(state, guarantee) {
     const index = state.guarantees.findIndex((g) => g._id === guarantee._id)
+    state.guarantees[index].maintance = guarantee.maintance
     state.guarantees[index].maintances = guarantee.maintances
+  },
+  deleteGuarentee(state, id) {
+    const index = state.guarantees.findIndex((g) => g._id === id)
+    state.guarantees.splice(index, 1)
   },
 }
 
 export const actions = {
   async addNewGuarantee({ commit }, guarantee) {
     const result = await this.$axios.post('/guarantee/add', guarantee)
-    console.log(result)
     return result
   },
 
@@ -31,9 +35,17 @@ export const actions = {
     const result = await this.$axios.put(`/guarantee/updateMaintanence/${id}`, {
       id: maintenance._id,
     })
-    console.log(result.data)
     if (result.data == null) return
     console.log(result.data)
     commit('replaceGuarantees', result.data)
+  },
+  async deleteGuarentee({ commit }, { id }) {
+    if (!id) return
+
+    const result = await this.$axios.delete(`/guarantee/delete/${id}`)
+
+    if (!result.data._id) return
+
+    commit('deleteGuarentee', result.data._id)
   },
 }

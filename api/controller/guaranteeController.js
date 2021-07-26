@@ -2,8 +2,21 @@ const Guarantee = require('../models/guarantee')
 
 async function getAllGuarantee(req, res) {
   try {
-    const doc = await Guarantee.find()
-    res.status(201).json(doc)
+    const docs = await Guarantee.find()
+
+    const endeds = docs.filter((guarantee) => {
+   return  new Date(guarantee.guaranteeEndDate).getTime() < new Date().getTime()
+    })
+    
+    if (endeds.length === 0) return res.status(201).json(docs)
+
+    for (const ended of endeds) {
+      await Guarantee.cancelGuarantee(ended._id, Guarantee)
+    }
+  
+    const newdocs = await Guarantee.find()
+
+    return res.status(201).json(newdocs)
   } catch (error) {
     res.send(error)
   }
@@ -25,7 +38,7 @@ async function updateMaintance(req, res) {
   const { id } = req.body
 
   Guarantee.updateMaintance(_id, id, true, Guarantee)
-    .then((doc) => res.status(200).json(doc))
+    .then((doc) => {res.status(200).json(doc)})
     .catch((err) => res.status(405).json(err))
 }
 

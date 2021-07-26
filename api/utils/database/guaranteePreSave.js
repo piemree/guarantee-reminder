@@ -17,21 +17,14 @@ module.exports = async function (next) {
 
     maintanceDate.setMonth(maintanceDate.getMonth() + guarantee.maintancePeriod)
   }
-  // calculate amount
-  guarantee.products.map(
-    (product) => (product.amount = product.count * product.price)
-  )
-  guarantee.products.map((product) => (guarantee.subtotal += product.amount))
 
-  guarantee.vatPrice = (guarantee.subtotal * guarantee.vat) / 100
+  //next Maintanence
 
-  guarantee.total = guarantee.vatPrice + guarantee.subtotal
-
-  guarantee.maintance = guarantee.maintances.sort((a, b) => b.date - a.date)[
-    guarantee.maintances.length - 1
-  ]
-
-  guarantee.products = []
+  guarantee.maintance = guarantee.maintances.sort(
+    (a, b) =>
+      parseInt(new Date(a.date).getTime()) -
+      parseInt(new Date(b.date).getTime())
+  )[0]
 
   next()
 }

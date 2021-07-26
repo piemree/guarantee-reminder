@@ -13,13 +13,20 @@
           Anasayfa
         </b-navbar-item>
 
-        <b-navbar-item tag="router-link" :to="{ path: '/new' }"
-          >Yeni
+        <b-navbar-item tag="router-link" :to="{ path: '/guarantee' }"
+          >Garanti
         </b-navbar-item>
 
+        <b-navbar-item tag="router-link" :to="{ path: '/bid' }"
+          >Fiyat teklifi
+        </b-navbar-item>
         <b-navbar-dropdown label="Tamir">
-          <b-navbar-item href="/fixes"> Yeni </b-navbar-item>
-          <b-navbar-item href="/fixes/new"> Liste </b-navbar-item>
+          <b-navbar-item tag="router-link" :to="{ path: '/bid' }"
+            >Yeni tamir
+          </b-navbar-item>
+          <b-navbar-item tag="router-link" :to="{ path: '/bid' }"
+            >Tamir listesi
+          </b-navbar-item>
         </b-navbar-dropdown>
       </template>
 

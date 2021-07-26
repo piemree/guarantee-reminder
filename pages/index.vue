@@ -42,6 +42,14 @@
       <b-table-column v-slot="props">
         <b-button @click="show(props.row)" style="width: 100%">Click</b-button>
       </b-table-column>
+      <b-table-column v-slot="props">
+        <b-button
+          @click="deleteGuarantee(props.row._id)"
+          class="is-danger"
+          style="width: 100%"
+          >Sil</b-button
+        >
+      </b-table-column>
     </b-table>
   </div>
 </template>
@@ -74,6 +82,9 @@ export default {
         trapFocus: true,
       })
     },
+    deleteGuarantee(id){
+        this.$store.dispatch('guarantee/deleteGuarentee',{id})
+    }
   },
 }
 </script>

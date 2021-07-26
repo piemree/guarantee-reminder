@@ -1,25 +1,16 @@
 const mongoose = require('mongoose')
 const customerSchema = require('./customer')
-const productSchema = require('./product')
 const maintenceSchema = require('./maintence')
 const updateMaintance = require('../utils/database/updateMaintance')
+const cancelGuarantee = require('../utils/database/cancelGuarantee')
 const guaranteePreSave = require('../utils/database/guaranteePreSave')
 
 const guaranteeSchema = new mongoose.Schema(
   {
-    products: [productSchema],
     customer: customerSchema,
-    vat: { type: Number, default: 18 },
-    vatPrice: { type: Number, default: 0 },
-    subtotal: { type: Number, default: 0 },
-    total: { type: Number, default: 0 },
     maintances: [maintenceSchema],
     subject: { type: String, required: true },
-    //properties: { type: Array},
-    maintance: {
-      date: { type: Date },
-      checked: { type: Boolean, default: false },
-    },
+    maintance:maintenceSchema,
     underGuarantee: { type: Boolean, default: true },
     maintancePeriod: { type: Number, required: true },
     guaranteePeriod: { type: Number, required: true },
@@ -29,6 +20,7 @@ const guaranteeSchema = new mongoose.Schema(
 )
 
 guaranteeSchema.statics.updateMaintance = updateMaintance
+guaranteeSchema.statics.cancelGuarantee = cancelGuarantee
 
 guaranteeSchema.pre('save',guaranteePreSave)
 
