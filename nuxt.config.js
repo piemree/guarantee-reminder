@@ -80,8 +80,17 @@ export default {
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    meta: {
+      title: 'Garanti takip',
+      author: 'Emre Demir',
+    },
     manifest: {
+      name: 'Garanti takip',
+      short_name: 'Garanti T.',
       lang: 'en',
+    },
+    icon: {
+      fileName: 'icon.png',
     },
   },
   router: {
