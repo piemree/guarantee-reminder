@@ -4,7 +4,9 @@
     style="max-width: 720px; margin: auto"
   >
     <header>
-      <h3 class="title is-4 my-3" style="text-align: center">Garanti</h3>
+      <h3 class="title is-4 my-3" style="text-align: center">
+        Garanti olustur
+      </h3>
     </header>
 
     <!-- 
@@ -22,7 +24,7 @@
     </b-field>
 
     <b-field label-position="on-border" label="Telefon">
-      <b-input v-model="customer.phone" type="text"></b-input>
+      <b-input v-model="customer.phone" type="number"></b-input>
     </b-field>
 
     <b-field label-position="on-border" label="Adres">
@@ -44,14 +46,14 @@
       <b-input v-model="guarantee.guaranteePeriod" type="number"></b-input>
     </b-field>
 
-    <button
+    <b-button
       :loading="load"
       type="submit"
       class="button is-primary"
       @click="createGuarantee"
     >
       Garanti olustur
-    </button>
+    </b-button>
   </div>
 </template>
 
@@ -75,16 +77,29 @@ export default {
   },
   methods: {
     createGuarantee() {
-      this.load = true
-      this.$store
-        .dispatch('guarantee/addNewGuarantee', {
-          products: this.products,
-          customer: this.customer,
-          ...this.guarantee,
-        })
-        .then(() => this.$buefy.toast.open('Garanti oluşturuldu!'))
-        .catch(() => this.$buefy.toast.open('İşlem başarısız!'))
-      this.load = false
+      this.$buefy.dialog.confirm({
+        title: 'Garanti oluştur',
+        message: 'Garanti oluşturulacak onaylıyor musunuz?',
+        cancelText: 'Geri',
+        confirmText: 'Onayla',
+        type: 'is-success',
+        onConfirm: () => {
+          this.load = true
+          this.customer.phone.toString()
+          this.$store
+            .dispatch('guarantee/addNewGuarantee', {
+              products: this.products,
+              customer: this.customer,
+              ...this.guarantee,
+            })
+            .then(() => {
+              this.$buefy.toast.open('Garanti oluşturuldu!')
+              this.$router.push('/')
+            })
+            .catch(() => this.$buefy.toast.open('İşlem başarısız!'))
+          this.load = false
+        },
+      })
     },
   },
 }

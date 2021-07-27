@@ -10,24 +10,22 @@
       </template>
       <template #start>
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
-          Anasayfa
+          Garanti listesi
         </b-navbar-item>
 
         <b-navbar-item tag="router-link" :to="{ path: '/guarantee' }"
-          >Garanti
+          >Garanti oluştur
         </b-navbar-item>
 
         <b-navbar-item tag="router-link" :to="{ path: '/bid' }"
           >Fiyat teklifi
         </b-navbar-item>
-        <b-navbar-dropdown label="Tamir">
-          <b-navbar-item tag="router-link" :to="{ path: '/bid' }"
-            >Yeni tamir
-          </b-navbar-item>
-          <b-navbar-item tag="router-link" :to="{ path: '/bid' }"
-            >Tamir listesi
-          </b-navbar-item>
-        </b-navbar-dropdown>
+        <b-navbar-item tag="router-link" :to="{ path: '/fix' }"
+          >Tamir oluştur
+        </b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{ path: '/fixes' }"
+          >Tamir listesi
+        </b-navbar-item>
       </template>
 
       <template #end>

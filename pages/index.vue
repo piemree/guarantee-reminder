@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
-    <b-field label="Firma Ara">
+  <div class="container" v-if="$store.state.guarantee.guarantees.length > 0">
+    <b-field label="Garanti Ara">
       <b-input v-model="name" icon="magnify" style="width: 20rem"></b-input>
     </b-field>
-    <b-table :data="data">
+    <b-table :data="data" paginated :per-page="20">
       <b-table-column v-slot="props" label="Firma">
         {{ props.row.customer.company }}
       </b-table-column>
@@ -51,6 +51,25 @@
         <delete-button :id="props.row._id" />
       </b-table-column>
     </b-table>
+  </div>
+  <div
+    class="
+      has-text-weight-semibold
+      is-flex
+      is-flex-direction-column
+      is-justify-content-center
+      is-align-items-center
+    "
+    style="height: 100vh"
+    v-else
+  >
+    <p class="is-size-6">GARANTİ LİSTESİ BOS GÖRÜNÜYOR</p>
+    <p class="is-size-6">GARANTİ OLUSTURMAK İÇİN TIKLAYIN</p>
+    <div class="is-flex is-justify-content-center my-5">
+      <b-button type="is-success" @click="$router.push('/guarantee')"
+        >Garanti olustur</b-button
+      >
+    </div>
   </div>
 </template>
 

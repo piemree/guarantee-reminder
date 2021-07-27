@@ -33,7 +33,7 @@ export const actions = {
 
   async getAllGuarantees({ commit }) {
     const result = await this.$axios.get('/guarantee')
-    commit('setGuarantees', result.data)
+    commit('setGuarantees', result.data.reverse())
     return result
   },
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="is-flex is-justify-content-space-evenly">
+    <div class="is-flex is-flex-wrap-wrap is-justify-content-space-evenly">
       <div
         v-for="maintenance in sortedMaintenances"
         :key="maintenance._id"
@@ -10,11 +10,11 @@
             : `has-background-danger`
         "
         style="
-          height: 30px;
           border-radius: 5px;
-          margin: 0 20px;
+          margin: 10px;
           padding: 3px;
           color: #fff;
+          font-size: 14px;
         "
       >
         {{ new Date(maintenance.date).toLocaleDateString('tr') }}
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: { maintenances: { type: Array, required: true } },
+  props: ['maintenances'],
 
   computed: {
     sortedMaintenances() {

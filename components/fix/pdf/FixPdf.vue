@@ -12,61 +12,46 @@ import styles from './style'
 import content from './content'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 export default {
-  props: ['guarantee', 'products', 'customer', 'properties', 'terms'],
+  props: ['fix'],
   methods: {
     downloadPdf() {
       const formatter = new Intl.NumberFormat('tr-tr', {
         style: 'currency',
         currency: 'TRY',
       })
-      const productBody = [
+
+      const fixBody = [
         [
           {
-            style: 'tableNameHeader',
-            text: 'ÜRÜN ADI',
+            style: 'tableHeader',
+            text: 'YETKİLİ',
             alignment: 'center',
           },
           {
             style: 'tableHeader',
-            text: 'BİRİM FİYAT',
+            text: 'FİRMA',
             alignment: 'center',
           },
-          { style: 'tableHeader', text: 'PERON', alignment: 'center' },
           { style: 'tableHeader', text: 'TUTAR', alignment: 'center' },
         ],
+        [
+          {
+            style: { fontSize: 9 },
+            text: `${this.fix.name}`,
+            alignment: 'left',
+          },
+          {
+            style: { fontSize: 9 },
+            text: `${this.fix.company}`,
+            alignment: 'left',
+          },
+          {
+            style: 'tableHeader',
+            text: `${formatter.format(this.fix.price)}`,
+            alignment: 'center',
+          },
+        ],
       ]
-
-      const propTexts = this.properties.map((e) => e.text)
-      const termTexts = this.terms.map((e) => e.text)
-
-      let subtotal = 0
-
-      this.products.forEach((product) => {
-        subtotal += parseInt(product.price * product.count)
-
-        const element = [
-          {
-            style: 'itemName',
-            text: `${product.name.toUpperCase()}`,
-          },
-          {
-            style: 'item',
-            text: `${formatter.format(product.price)}`,
-            alignment: 'center',
-          },
-          {
-            style: 'item',
-            text: `${product.count}`,
-            alignment: 'center',
-          },
-          {
-            style: 'item',
-            text: `${formatter.format(product.price * product.count)}`,
-            alignment: 'center',
-          },
-        ]
-        productBody.push(element)
-      })
 
       const docDefinition = {
         footer: [
@@ -88,21 +73,14 @@ export default {
           },
         ],
 
-        content: content(
-          this.customer,
-          productBody,
-          subtotal,
-          this.guarantee,
-          propTexts,
-          termTexts
-        ),
+        content: content(this.fix, fixBody),
 
         styles: { ...styles },
       }
 
       pdfMake
         .createPdf(docDefinition)
-        .download(`${this.customer.name} - ${this.customer.company}`)
+        .download(`${this.fix.name} - ${this.fix.company}`)
     },
   },
 }

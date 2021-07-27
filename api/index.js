@@ -6,7 +6,8 @@ const app = express()
 
 const { startDb } = require('./utils/database/starter')
 
-const warratyRoute = require('./routes/authRoutes/guaranteeRoute')
+const guaranteeRoute = require('./routes/authRoutes/guaranteeRoute')
+const fixRoute = require('./routes/authRoutes/fixRoute')
 
 const publicRoutes = require('./routes/publicRoutes')
 const tokenCheck = require('./middlewares/tokenCheckMiddleware')
@@ -20,7 +21,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.use('/', publicRoutes)
-app.use('/guarantee', tokenCheck, warratyRoute)
+app.use('/guarantee', tokenCheck, guaranteeRoute)
+app.use('/fix', tokenCheck, fixRoute)
 
 startDb(connectionString)
 
@@ -28,12 +30,3 @@ module.exports = {
   path: '/api',
   handler: app,
 }
-
-// Start standalone server if directly running
-
-/*   app.listen(port, () => {
-    startDb(connectionString)
-    // eslint-disable-next-line no-console
-    console.log(`API server listening on port ${port}`)
-  })
- */

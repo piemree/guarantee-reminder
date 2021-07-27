@@ -98,13 +98,13 @@ export default function (
     },
     { text: '\n\nSİSTEMİN ÖZELLİKLERİ', style: { bold: true, fontSize: 10 } },
     {
-      style: { fontSize: 8 },
+      style: { fontSize: 9 },
       type: 'circle',
       ul: props,
     },
     { text: '\n\n\nÖDEME KOŞULLARI', style: { bold: true, fontSize: 10 } },
     {
-      style: { fontSize: 8 },
+      style: { fontSize: 9 },
       type: 'circle',
       ul: terms,
     },

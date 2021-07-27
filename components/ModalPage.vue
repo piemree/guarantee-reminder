@@ -52,6 +52,6 @@
 
 <script>
 export default {
-  props: { guarantee: { type: Object, required: true } },
+   props: ["guarantee"],
 }
 </script>

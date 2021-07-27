@@ -10,10 +10,7 @@
 
 <script>
 export default {
-  props: {
-    id: { type: String, required: true },
-    underGuarantee: { type: Boolean, required: true },
-  },
+  props: ['id', "underGuarantee"],
   data() {
     return {
       load: false,

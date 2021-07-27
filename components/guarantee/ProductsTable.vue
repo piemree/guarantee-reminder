@@ -5,7 +5,7 @@
         {{ props.row.name }}
       </b-table-column>
       <b-table-column v-slot="props" field="price" label="Fiyat">
-        {{ props.row.price }}
+        {{ format(props.row.price) }}
       </b-table-column>
       <b-table-column v-slot="props" field="count" label="Adet">
         {{ props.row.count }}
@@ -24,8 +24,17 @@
 </template>
 
 <script>
+const formatter = new Intl.NumberFormat('tr-tr', {
+  style: 'currency',
+  currency: 'TRY',
+})
 export default {
-  props: { products: { type: Array, default: () => [] } },
+  props: ['products'],
+  methods: {
+    format(price) {
+      return formatter.format(price)
+    },
+  },
 }
 </script>
 

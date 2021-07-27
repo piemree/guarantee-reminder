@@ -3,7 +3,7 @@
     :loading="load"
     class="is-danger is-small"
     style="width: 100%"
-    @click="deleteGuarantee"
+    @click="deleteFix"
     >Sil</b-button
   >
 </template>
@@ -17,11 +17,11 @@ export default {
     }
   },
   methods: {
-    deleteGuarantee() {
+    deleteFix() {
       this.$buefy.dialog.confirm({
-        title: 'Garantiyi sil',
+        title: 'Tamir sil',
         message:
-          'Garantiyi <b>SİLMEK</b> istediğinizden emin misiniz? Bu işlem geri alınamaz!',
+          'Tamiri <b>SİLMEK</b> istediğinizden emin misiniz? Bu işlem geri alınamaz!',
         cancelText: 'Geri',
         confirmText: 'Sil',
         type: 'is-danger',
@@ -30,10 +30,10 @@ export default {
           this.load = true
 
           this.$store
-            .dispatch('guarantee/deleteGuarentee', {
+            .dispatch('fix/deleteFix', {
               id: this.id,
             })
-            .then(() => this.$buefy.toast.open('Garanti silindi!'))
+            .then(() => this.$buefy.toast.open('Tamir silindi!'))
             .catch(() => this.$buefy.toast.open('Silme işlemi başarısız!'))
           this.load = false
         },
