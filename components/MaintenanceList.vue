@@ -2,23 +2,30 @@
   <div>
     <div class="is-flex is-justify-content-space-evenly">
       <div
-        v-for="sortedMaintenance in sortedMaintenances"
-        :key="sortedMaintenance._id"
+        v-for="maintenance in sortedMaintenances"
+        :key="maintenance._id"
         :class="
-          sortedMaintenance.checked
+          maintenance.checked
             ? `has-background-success`
             : `has-background-danger`
         "
-        style="width: 30px; height: 30px; border-radius: 50%"
-      ></div>
+        style="
+          height: 30px;
+          border-radius: 5px;
+          margin: 0 20px;
+          padding: 3px;
+          color: #fff;
+        "
+      >
+        {{ new Date(maintenance.date).toLocaleDateString('tr') }}
+      </div>
     </div>
-    <b-button @click="set"> set status </b-button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['maintenances', 'id'],
+  props: { maintenances: { type: Array, required: true } },
 
   computed: {
     sortedMaintenances() {
@@ -30,7 +37,7 @@ export default {
     },
   },
   methods: {
-    set() {
+    setMaintenance() {
       const filtered = this.sortedMaintenances.filter(
         (maintenance) => maintenance.checked === false
       )

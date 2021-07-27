@@ -1,61 +1,60 @@
 <template>
   <div class="container">
-    <b-table :data="guarantees" ref="table">
-      <b-table-column field="customer.company" label="Firma" v-slot="props">
+    <b-field label="Firma Ara">
+      <b-input v-model="name" icon="magnify" style="width: 20rem"></b-input>
+    </b-field>
+    <b-table :data="data">
+      <b-table-column v-slot="props" label="Firma">
         {{ props.row.customer.company }}
       </b-table-column>
-      <b-table-column
-        field="customer.name"
-        label="Yetkili"
-        sortable
-        v-slot="props"
-      >
+      <b-table-column v-slot="props" label="Yetkili">
         {{ props.row.customer.name }}
       </b-table-column>
+      <b-table-column v-slot="props" label="Konu">
+        {{ props.row.subject }}
+      </b-table-column>
       <b-table-column
+        v-slot="props"
         field="maintance.date"
         label="Bakım tarihi"
-        @click="show(props.row)"
         sortable
-        v-slot="props"
       >
         <span
           :class="
             props.row.maintance.checked ? 'tag is-success' : 'tag is-danger'
           "
         >
-          {{ new Date(props.row.maintance.date).toLocaleDateString() }}
+          {{ new Date(props.row.maintance.date).toLocaleDateString('tr') }}
         </span>
       </b-table-column>
       <b-table-column
+        v-slot="props"
         field="guaranteeEndDate"
         label="Garanti bitiş"
         sortable
-        v-slot="props"
       >
         <span
           :class="props.row.underGuarantee ? 'tag is-success' : 'tag is-danger'"
         >
-          {{ new Date(props.row.guaranteeEndDate).toLocaleDateString() }}
+          {{ new Date(props.row.guaranteeEndDate).toLocaleDateString('tr') }}
         </span>
       </b-table-column>
       <b-table-column v-slot="props">
-        <b-button @click="show(props.row)" style="width: 100%">Click</b-button>
+        <b-button
+          class="is-small"
+          style="width: 100%"
+          @click="details(props.row)"
+          >Garanti detayları</b-button
+        >
       </b-table-column>
       <b-table-column v-slot="props">
-        <b-button
-          @click="deleteGuarantee(props.row._id)"
-          class="is-danger"
-          style="width: 100%"
-          >Sil</b-button
-        >
+        <delete-button :id="props.row._id" />
       </b-table-column>
     </b-table>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import ModalPage from '@/components/ModalPage.vue'
 
 export default {
@@ -63,16 +62,25 @@ export default {
     await store.dispatch('guarantee/getAllGuarantees')
   },
   data() {
-    return {}
+    return {
+      name: '',
+    }
   },
   computed: {
-    ...mapState({
-      guarantees: (state) => state.guarantee.guarantees,
-    }),
-  },
+    data() {
+      const guarantees = this.$store.state.guarantee.guarantees
 
+      const regex = new RegExp(`^${this.name.toLowerCase()}`, 'g')
+
+      return guarantees.filter(
+        ({ customer }) =>
+          customer.name.toLowerCase().match(regex) ||
+          customer.company.toLowerCase().match(regex)
+      )
+    },
+  },
   methods: {
-    show(data) {
+    details(data) {
       this.$buefy.modal.open({
         parent: this,
         props: { guarantee: data },
@@ -82,9 +90,6 @@ export default {
         trapFocus: true,
       })
     },
-    deleteGuarantee(id){
-        this.$store.dispatch('guarantee/deleteGuarentee',{id})
-    }
   },
 }
 </script>

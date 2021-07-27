@@ -5,15 +5,17 @@ async function getAllGuarantee(req, res) {
     const docs = await Guarantee.find()
 
     const endeds = docs.filter((guarantee) => {
-   return  new Date(guarantee.guaranteeEndDate).getTime() < new Date().getTime()
+      return (
+        new Date(guarantee.guaranteeEndDate).getTime() < new Date().getTime()
+      )
     })
-    
+
     if (endeds.length === 0) return res.status(201).json(docs)
 
     for (const ended of endeds) {
       await Guarantee.cancelGuarantee(ended._id, Guarantee)
     }
-  
+
     const newdocs = await Guarantee.find()
 
     return res.status(201).json(newdocs)
@@ -38,7 +40,9 @@ async function updateMaintance(req, res) {
   const { id } = req.body
 
   Guarantee.updateMaintance(_id, id, true, Guarantee)
-    .then((doc) => {res.status(200).json(doc)})
+    .then((doc) => {
+      res.status(200).json(doc)
+    })
     .catch((err) => res.status(405).json(err))
 }
 
@@ -49,6 +53,25 @@ async function updateGuarantee(req, res) {
   Guarantee.findOneAndUpdate({ _id: _id }, guarantee)
     .then((doc) => res.status(200).json(doc))
     .catch((err) => res.status(405).json(err))
+}
+
+async function finishGuarantee(req, res) {
+  if (!req.params.id) return res.status(404)
+
+  const doc = await Guarantee.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    {
+      $set: {
+        underGuarantee: false,
+      },
+    },
+    { new: true }
+  )
+  if (!doc) return res.status(404)
+
+  res.status(200).json(doc)
 }
 
 async function deleteGuarantee(req, res) {
@@ -67,5 +90,6 @@ module.exports = {
   addNewGuarantee,
   updateMaintance,
   updateGuarantee,
+  finishGuarantee,
   deleteGuarantee,
 }

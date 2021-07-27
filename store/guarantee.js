@@ -6,10 +6,14 @@ export const mutations = {
   setGuarantees(state, guarantees) {
     state.guarantees = [...guarantees]
   },
-  replaceGuarantees(state, guarantee) {
+  replaceMaintanence(state, guarantee) {
     const index = state.guarantees.findIndex((g) => g._id === guarantee._id)
     state.guarantees[index].maintance = guarantee.maintance
     state.guarantees[index].maintances = guarantee.maintances
+  },
+  replaceGuarantee(state, guarantee) {
+    const index = state.guarantees.findIndex((g) => g._id === guarantee._id)
+    state.guarantees[index].underGuarantee = guarantee.underGuarantee
   },
   deleteGuarentee(state, id) {
     const index = state.guarantees.findIndex((g) => g._id === id)
@@ -19,8 +23,12 @@ export const mutations = {
 
 export const actions = {
   async addNewGuarantee({ commit }, guarantee) {
-    const result = await this.$axios.post('/guarantee/add', guarantee)
-    return result
+    try {
+      const result = await this.$axios.post('/guarantee/add', guarantee)
+      return result
+    } catch (error) {
+      return error
+    }
   },
 
   async getAllGuarantees({ commit }) {
@@ -36,8 +44,13 @@ export const actions = {
       id: maintenance._id,
     })
     if (result.data == null) return
-    console.log(result.data)
-    commit('replaceGuarantees', result.data)
+
+    commit('replaceMaintanence', result.data)
+  },
+
+  async finishGuarantee({ commit }, id) {
+    const result = await this.$axios.put(`/guarantee/finishGuarantee/${id}`)
+    commit('replaceGuarantee', result.data)
   },
   async deleteGuarentee({ commit }, { id }) {
     if (!id) return
@@ -47,5 +60,7 @@ export const actions = {
     if (!result.data._id) return
 
     commit('deleteGuarentee', result.data._id)
+
+    return result
   },
 }

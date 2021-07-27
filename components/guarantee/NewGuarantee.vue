@@ -44,7 +44,12 @@
       <b-input v-model="guarantee.guaranteePeriod" type="number"></b-input>
     </b-field>
 
-    <button @click="createGuarantee" type="submit" class="button is-primary">
+    <button
+      :loading="load"
+      type="submit"
+      class="button is-primary"
+      @click="createGuarantee"
+    >
       Garanti olustur
     </button>
   </div>
@@ -65,15 +70,21 @@ export default {
         maintancePeriod: null,
         guaranteePeriod: null,
       },
+      load: false,
     }
   },
   methods: {
-    async createGuarantee() {
-      await this.$store.dispatch('guarantee/addNewGuarantee', {
-        products: this.products,
-        customer: this.customer,
-        ...this.guarantee,
-      })
+    createGuarantee() {
+      this.load = true
+      this.$store
+        .dispatch('guarantee/addNewGuarantee', {
+          products: this.products,
+          customer: this.customer,
+          ...this.guarantee,
+        })
+        .then(() => this.$buefy.toast.open('Garanti oluşturuldu!'))
+        .catch(() => this.$buefy.toast.open('İşlem başarısız!'))
+      this.load = false
     },
   },
 }

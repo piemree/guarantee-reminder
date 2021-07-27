@@ -15,6 +15,6 @@
 
 <script>
 export default {
-  props: { properties: Array },
+  props: { properties: { type: Array, default: () => [] } },
 }
 </script>

@@ -73,7 +73,7 @@
         @click="addProp"
         >Ekle</b-button
       >
-      <PropertiesTable
+      <properties-table
         v-if="properties.length > 0"
         :properties="properties"
         @idx="deleteProp"
@@ -93,14 +93,14 @@
         @click="addTerm"
         >Ekle</b-button
       >
-      <PropertiesTable
+      <properties-table
         v-if="terms.length > 0"
         :properties="terms"
         @idx="deleteTerm"
       />
     </div>
-    <GuaranteePdf
-        class="mt-5"
+    <guarantee-pdf
+      class="mt-5"
       :products="products"
       :customer="customer"
       :guarantee="guarantee"

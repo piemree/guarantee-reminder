@@ -1,13 +1,13 @@
 <template>
   <div class="my-4">
     <b-table :data="products" :mobile-cards="false">
-      <b-table-column field="product.name" label="Ürün" v-slot="props">
+      <b-table-column v-slot="props" field="product.name" label="Ürün">
         {{ props.row.name }}
       </b-table-column>
-      <b-table-column field="price" label="Fiyat" v-slot="props">
+      <b-table-column v-slot="props" field="price" label="Fiyat">
         {{ props.row.price }}
       </b-table-column>
-      <b-table-column field="count" label="Adet" v-slot="props">
+      <b-table-column v-slot="props" field="count" label="Adet">
         {{ props.row.count }}
       </b-table-column>
       <b-table-column v-slot="props">
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: { products: Array },
+  props: { products: { type: Array, default: () => [] } },
 }
 </script>
 

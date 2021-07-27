@@ -1,6 +1,6 @@
 <template>
   <div class="is-flex is-justify-content-center" style="width: 100%">
-    <b-button style="width: 100%" @click="downloadPdf" class="is-danger"
+    <b-button style="width: 100%" class="is-danger" @click="downloadPdf"
       >PDF</b-button
     >
   </div>
@@ -12,8 +12,13 @@ import styles from './style'
 import content from './content'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 export default {
-  props: ['guarantee', 'products', 'customer', 'properties', 'terms'],
-
+  props: {
+    guarantee: { type: Object, required: true },
+    products: { type: Array, required: true },
+    customer: { type: Object, required: true },
+    properties: { type: Array, default: () => [] },
+    terms: { type: Array, default: () => [] },
+  },
   methods: {
     downloadPdf() {
       const formatter = new Intl.NumberFormat('tr-tr', {
@@ -76,7 +81,7 @@ export default {
             alignment: 'center',
             style: {
               fontSize: 9,
-              bold:true
+              bold: true,
             },
           },
           {
@@ -84,7 +89,7 @@ export default {
             alignment: 'center',
             style: {
               fontSize: 8,
-              bold:true
+              bold: true,
             },
           },
         ],

@@ -18,7 +18,7 @@
           :type="{ 'is-danger': passwordError }"
           :message="{ 'Şifre yanlıs': passwordError }"
         >
-          <b-input password-reveal v-model="password" type="password"></b-input>
+          <b-input v-model="password" password-reveal type="password"></b-input>
         </b-field>
 
         <button type="submit" class="button is-primary">Giriş yap</button>
@@ -46,7 +46,7 @@ export default {
         this.usernameError = res.data.username
         this.passwordError = res.data.password
       } catch (error) {
-        console.error(error)
+
       }
     },
   },

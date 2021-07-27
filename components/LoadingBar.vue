@@ -1,8 +1,8 @@
 <template>
   <section>
     <b-loading
-      :is-full-page="true"
       v-model="loading"
+      :is-full-page="true"
       :can-cancel="true"
     ></b-loading>
   </section>

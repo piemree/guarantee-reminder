@@ -1,6 +1,6 @@
 <template>
   <section>
-    <NewBid />
+    <new-bid />
   </section>
 </template>
 

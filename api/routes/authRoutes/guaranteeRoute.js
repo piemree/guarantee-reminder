@@ -7,6 +7,7 @@ const {
   addNewGuarantee,
   updateMaintance,
   deleteGuarantee,
+  finishGuarantee
 } = require('../../controller/guaranteeController')
 
 router.get('/', getAllGuarantee)
@@ -14,6 +15,8 @@ router.get('/', getAllGuarantee)
 router.post('/add', addNewGuarantee)
 
 router.put('/updateMaintanence/:id', updateMaintance)
+
+router.put('/finishGuarantee/:id', finishGuarantee)
 
 router.delete('/delete/:id', deleteGuarantee)
 

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <NewGuarantee />
+    <new-guarantee />
   </section>
 </template>
 
