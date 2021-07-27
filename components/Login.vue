@@ -59,10 +59,12 @@ export default {
         else {
           this.$buefy.toast.open('Giriş başarılı')
         }
+        this.load = false
       } catch (error) {
         this.$buefy.toast.open('Giriş sırasında hata oluştu')
+        this.load = false
       }
-      this.load = false
+      
     },
   },
 }

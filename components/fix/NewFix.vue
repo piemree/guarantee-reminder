@@ -61,7 +61,7 @@ export default {
   methods: {
     createGuarantee() {
       this.fix.price.toString()
-      
+
       this.$buefy.dialog.confirm({
         title: 'Tamir oluştur',
         message: 'Tamir oluşturulacak onaylıyor musunuz?',
@@ -75,10 +75,13 @@ export default {
             .dispatch('fix/addNewFix', this.fix)
             .then(() => {
               this.$buefy.toast.open('Tamir oluşturuldu!')
+              this.load = false
               this.$router.push('/fixes')
             })
-            .catch(() => this.$buefy.toast.open('İşlem başarısız!'))
-          this.load = false
+            .catch(() => {
+              this.$buefy.toast.open('İşlem başarısız!')
+              this.load = false
+            })
         },
       })
     },

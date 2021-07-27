@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ["guarantee"],
+  props: ['guarantee'],
   data() {
     return {
       load: false,
@@ -46,9 +46,14 @@ export default {
               id: this.guarantee._id,
               maintenance: toBeUpdate,
             })
-            .then(() => this.$buefy.toast.open('Bakım yapıldı!'))
-            .catch(() => this.$buefy.toast.open('Bakım esnasında hata olustu!'))
-          this.load = false
+            .then(() => {
+              this.$buefy.toast.open('Bakım yapıldı!')
+              this.load = false
+            })
+            .catch(() => {
+              this.$buefy.toast.open('Bakım esnasında hata olustu!')
+              this.load = false
+            })
         },
       })
     },

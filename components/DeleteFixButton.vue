@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ["id"],
+  props: ['id'],
   data() {
     return {
       load: false,
@@ -33,9 +33,14 @@ export default {
             .dispatch('fix/deleteFix', {
               id: this.id,
             })
-            .then(() => this.$buefy.toast.open('Tamir silindi!'))
-            .catch(() => this.$buefy.toast.open('Silme işlemi başarısız!'))
-          this.load = false
+            .then(() => {
+              this.$buefy.toast.open('Tamir silindi!')
+              this.load = false
+            })
+            .catch(() => {
+              this.$buefy.toast.open('Silme işlemi başarısız!')
+              this.load = false
+            })
         },
       })
     },

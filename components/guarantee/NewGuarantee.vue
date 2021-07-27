@@ -94,10 +94,13 @@ export default {
             })
             .then(() => {
               this.$buefy.toast.open('Garanti oluşturuldu!')
+              this.load = false
               this.$router.push('/')
             })
-            .catch(() => this.$buefy.toast.open('İşlem başarısız!'))
-          this.load = false
+            .catch(() => {
+              this.$buefy.toast.open('İşlem başarısız!')
+              this.load = false
+            })
         },
       })
     },

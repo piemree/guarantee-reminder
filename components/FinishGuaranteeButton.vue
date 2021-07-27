@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ['id', "underGuarantee"],
+  props: ['id', 'underGuarantee'],
   data() {
     return {
       load: false,
@@ -30,9 +30,14 @@ export default {
           this.load = true
           this.$store
             .dispatch('guarantee/finishGuarantee', this.id)
-            .then(() => this.$buefy.toast.open('Garanti iptal edildi!'))
-            .catch(() => this.$buefy.toast.open('İşlemi başarısız!'))
-          this.load = false
+            .then(() => {
+              this.$buefy.toast.open('Garanti iptal edildi!')
+              this.load = false
+            })
+            .catch(() => {
+              this.$buefy.toast.open('İşlemi başarısız!')
+              this.load = false
+            })
         },
       })
     },
