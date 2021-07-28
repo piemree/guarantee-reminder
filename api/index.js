@@ -14,26 +14,9 @@ const tokenCheck = require('./middlewares/tokenCheckMiddleware')
 
 const { port, connectionString } = require('./utils/secrets/secret')
 
-const whitelist = [
-  'https://ayhanticaret16.site',
-  'https://www.ayhanticaret16.site',
-]
-
-let corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-}
-
- if (process.env.NODE_ENV !== 'production') corsOptions = {}
-
 app.use(helmet())
 app.use(morgan('tiny'))
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
