@@ -71,7 +71,7 @@ export default {
       const docDefinition = {
         footer: [
           {
-            text: 'VATAN MAKİNA KİMYA SAN.TİC.LTD.ŞTİ',
+            text: 'AYHAN TİCARET ENDÜSTRİYEL TEMİZLİK MAKİNALARI',
             alignment: 'center',
             style: {
               fontSize: 9,
@@ -79,7 +79,7 @@ export default {
             },
           },
           {
-            text: 'Demirci mahallesi demirciyolu caddesi no:28/a Nilüfer / BURSA T: 0 224 452 55 38 F: 0 224 452 73 88 vatanototemizlik.com',
+            text: 'Bahar Mahallesi Ulubatlı Hasan bulvarı No:69 Osmangazi / Bursa  T1: 0 224 255 02 80 38 T2: 0553 355 16 38  www.ayhanticaret.com',
             alignment: 'center',
             style: {
               fontSize: 8,

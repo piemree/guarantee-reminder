@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const maintenanceMiddleware = require('../../middlewares/maintenanceMiddleware')
 
 const {
   getAllGuarantee,
