@@ -64,7 +64,7 @@ export default {
             },
           },
           {
-            text: 'Bahar Mahallesi Ulubatlı Hasan bulvarı No:69 Osmangazi / Bursa  T1: 0 224 255 02 80 38 T2: 0553 355 16 38  www.ayhanticaret.com',
+            text: 'Bahar Mahallesi Ulubatlı Hasan bulvarı No:69 Osmangazi / Bursa  TEL: 0 224 255 02 80 38 GSM: 0553 355 16 38  www.ayhanticaret.com',
             alignment: 'center',
             style: {
               fontSize: 8,
