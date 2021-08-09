@@ -64,7 +64,7 @@
       Sistem özellikleri
     </h3>
     <b-field label="Özellik" label-position="on-border">
-      <b-input v-model="prop.text" maxlength="200" type="textarea"></b-input>
+      <b-input v-model="prop.text"  type="textarea"></b-input>
     </b-field>
     <div>
       <b-button
@@ -84,7 +84,7 @@
       Ödeme koşulları
     </h3>
     <b-field label="Koşul" label-position="on-border">
-      <b-input v-model="term.text" maxlength="200" type="textarea"></b-input>
+      <b-input v-model="term.text"  type="textarea"></b-input>
     </b-field>
     <div>
       <b-button
