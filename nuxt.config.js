@@ -11,19 +11,14 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  ssr: true,
+  ssr: false,
   server: {
     port: 8080,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
-
-  loading: '~/components/LoadingBar.vue',
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
-
-  //serverMiddleware: ['~/server-middleware/reminder'],
-  serverMiddleware: ['~/api'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -37,47 +32,10 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/buefy
-    'nuxt-buefy',
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    'nuxt-buefy',,
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
-    '@nuxtjs/auth-next',
+    '@nuxtjs/pwa'
   ],
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL:
-      process.env.NODE_ENV === 'production'
-        ? process.env.BASE_URL
-        : 'http://localhost:8080/api',
-  },
-  auth: {
-    redirect: {
-      login: '/login',
-      logout: '/login',
-      home: '/',
-    },
-    strategies: {
-      local: {
-        token: {
-          property: 'token',
-          global: true,
-          required: true,
-          type: 'Bearer',
-        },
-        user: {
-          property: 'user',
-          // autoFetch: true
-        },
-        endpoints: {
-          login: { url: '/login', method: 'post', propertyName: 'login' },
-          user: false,
-          logout: false,
-        },
-      },
-    },
-  },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     meta: {
@@ -92,9 +50,6 @@ export default {
     icon: {
       fileName: 'icon.png',
     },
-  },
-  router: {
-    middleware: ['auth'],
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
